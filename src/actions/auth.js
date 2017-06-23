@@ -30,24 +30,29 @@ export function loginSuccess(user) {
 }
 
 export function login(email, password) {
-  console.log("loginAction");
-
   return (dispatch) => {
        dispatch(signUpRequested(true));
        firebaseApp.auth().signInWithEmailAndPassword(email, password)
        .then((user) => {
          console.log(user.uid);
-         var usernameListRef = firebaseApp.database().ref('usernameList');
-         var usersRef = usernameListRef.child('users');
-         //var loggedInUserRef = usersRef.child(user.uid);
-         var path = usersRef.toString();
+
+
+         var usernameListRef = firebaseApp.database().ref('users');
+         //var usersRef = usernameListRef.child('users');
+         var loggedInUserRef = usernameListRef.child(user.uid);
+         var path = loggedInUserRef.toString();
+         console.log(path);
+         loggedInUserRef.once('value')
+  .then(function(dataSnapshot) {
+    console.log(dataSnapshot.val());
+     dispatch(loginSuccess(dataSnapshot.val()));
+    // handle read data.
+  });
 // path is now 'https://sample-app.firebaseio.com/users/ada/name/first'
-         firebaseApp.database().ref(path).once('value')
-         .then((snapshot) => {
-         console.log(snapshot);
-
-
-         })
+         //firebaseApp.database().ref(path)...once('value')
+         //.then((snapshot) => {
+         //console.log(snapshot);
+         //})
        }).catch((error) => dispatch(loginRejected(error)));;;
    };
 }
