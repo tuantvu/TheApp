@@ -1,4 +1,4 @@
-# The ultimate React Native starter using Firebase, Mobx, Code-Push and OneSignal
+# TheApp - Platform
 
 
 ## Built with
