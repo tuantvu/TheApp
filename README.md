@@ -74,3 +74,6 @@ git push origin master
 You should now be able to take changes in the TheApp repository and then pull in the new app to merge in all those changes.
 git pull upstream master
 ...
+
+###How to Debug
+Use http://localhost:8081/debugger-ui
